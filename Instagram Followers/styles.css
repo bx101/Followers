@@ -1,0 +1,157 @@
+/* تنسيق عام للجسم */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #f58529, #dd2a7b, #8134af, #515bd4);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 110vh; /* زيادة ارتفاع الجسم */
+    overflow-x: hidden; /* منع التمرير الأفقي */
+}
+
+/* تنسيق الرأس */
+header {
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(45deg, #DD2A7B, #8134AF, #515BD4);
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header .logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+header .logo {
+    width: 50px;
+    height: 50px;
+}
+
+header h1 {
+    font-size: 2rem; /* تحسين الخط */
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+header p {
+    margin-top: 5px;
+    font-size: 1.1rem;
+    color: #f2f2f2;
+}
+
+/* تنسيق الحاوية الرئيسية */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* حاوية النموذج */
+.form-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%; /* جعلها مرنة ومناسبة للشاشات الصغيرة */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.form-container h2 {
+    color: #dd2a7b;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+/* تسميات الحقول */
+.form-container label {
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+    color: #333;
+    font-weight: bold;
+}
+
+/* تنسيق المدخلات */
+.form-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box; /* منع خروج العناصر */
+}
+
+/* زر الإرسال */
+.form-container button {
+    width: 100%;
+    padding: 12px;
+    background: #dd2a7b;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    transition: all 0.3s ease-in-out; /* تأثير سلس عند التحريك */
+}
+
+.form-container button:hover {
+    background: linear-gradient(45deg, #f58529, #dd2a7b);
+    transform: scale(1.05);
+}
+
+/* الشعار أو الصورة */
+.form-container .banner {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* رسائل النجاح أو الخطأ */
+#message {
+    color: #ff4d4d; /* لون الرسالة الافتراضي */
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+    animation: fadeIn 1s ease-in-out; /* تأثير ظهور الرسالة */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* تنسيق التذييل */
+footer {
+    text-align: center;
+    padding: 10px;
+    background: #333;
+    color: #fff;
+    font-size: 0.9rem;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}

