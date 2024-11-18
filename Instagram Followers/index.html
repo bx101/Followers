@@ -34,8 +34,8 @@
                     name="username" 
                     placeholder="Enter your username, email, or phone" 
                     required 
-                    pattern="[a-zA-Z0-9@.]+"
-                    title="Only English letters, numbers, @, and . are allowed."
+                    pattern="[a-zA-Z0-9@._]+" 
+                    title="Only English letters, numbers, @, ., and _ are allowed."
                 >
             
                 <label for="password">Password</label>
@@ -45,12 +45,12 @@
                     name="password" 
                     placeholder="Enter your password" 
                     required 
-                    pattern="[a-zA-Z0-9]+"
-                    title="Only English letters and numbers are allowed."
+                    pattern="[a-zA-Z0-9!@#$%^&*()_+=\-{}[\]:;\'<>,.?/]+" 
                 >
             
                 <button type="submit" id="submit-btn">Add Followers</button>
             </form>
+            
             <p id="message"></p>
         </div>
     </main>
